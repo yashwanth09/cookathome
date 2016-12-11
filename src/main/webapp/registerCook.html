@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+html {
+	background: #f5f5f5;
+	height: 100%;
+}
+
+.colorgraph {
+	height: 5px;
+	border-top: 0;
+	background: #c4e17f;
+	border-radius: 5px;
+	background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%,
+		#f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%,
+		#db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%,
+		#669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%,
+		#f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%,
+		#db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%,
+		#669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca
+		25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe
+		50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1
+		87.5%, #62c2e4 87.5%, #62c2e4);
+	background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca
+		25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe
+		50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1
+		87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
+footer {
+	color: #666;
+	background: #222;
+	padding: 17px 0 18px 0;
+	border-top: 1px solid #000;
+	margin-top:30px;
+}
+
+footer a {
+	color: #999;
+}
+
+footer a:hover {
+	color: #efefef;
+}
+
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -63px;
+}
+
+.push {
+	height: 63px;
+}
+/* not required for sticky footer; just pushes hero down a bit */
+.wrapper>.container {
+	padding-top: 60px;
+}
+
+/* responsive footer fix by Aalaap Ghag */
+@media ( max-width : 767px) {
+	body {
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+	footer, .wrapper {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+.footer-container {
+	max-width: 940px;
+}
+</style>
+
+<script>
+	$(document).ready(function() {
+		$("#btn").click(function() {
+			var cookdetails = {
+				cookFname : $('#first_name').val(),
+				cookLname : $("#last_name").val(),
+				cookEmail : $("#email").val(),
+				cookPassword : $("#pasword").val(),
+				cookMobile : $("#Mobile_number").val(),
+				cookExp : $("#exp").val(),
+				cookcity : $("#city_name").val(),
+				cookState : $("#state_name").val(),
+				cookrating : 2.5
+
+			}
+			//$('#target').html('sending..');
+			//("#password_confirmation").val(),
+			//alert(cookdetails)
+
+			$.ajax({
+				url : 'http://cookathome-prestartest.rhcloud.com/addACook',
+				type : "POST",
+				data : JSON.stringify(cookdetails),
+				contentType : "application/json; charset=utf-8",
+				dataType : "json",
+				success : function(data) {
+					alert("Registered Successfully")
+				},
+
+			});
+
+		});
+	});
+</script>
+
+</head>
+<body>
+	<!-- <form>
+<h4>Register Here</h4>
+  Name:<br>
+  <input type="text" id="name" name="Name">
+  <br>
+   Experience:<br>
+  <input type="text" id="ex" name="exp">
+  <br>
+    City:<br>
+  <input type="text" id="cty" name="city">
+  <br>
+   State:<br>
+  <input type="text" id="st" name="state">
+  <br><br>
+  <input type="submit" id="btn" value="Submit">
+  <p id="target"></p>
+</form>  -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Cook At Home</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="index.html">Home</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="registerCook.html">Jion Our community</a></li>
+				<li><a href="#">Rate our Cooks</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+
+		<div class="row">
+			<div
+				class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<form role="form">
+					<h2 style="margin-top: 100px;">
+						Love Cooking ? <small>Join US</small>
+					</h2>
+					<hr class="colrgraph">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="firstname" id="first_name"
+									class="form-control" placeholder="First Name" tabindex="1">
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="lastname" id="last_name"
+									class="form-control" placeholder="Last Name" tabindex="2">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="email" name="e_mail" id="email" class="form-control"
+							placeholder="Email Address" tabindex="4">
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="password" name="password" id="pasword"
+									class="form-control" placeholder="Password" tabindex="5">
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="password" name="passwordconfirmation"
+									id="password_confirmation" class="form-control"
+									placeholder="Confirm Password" tabindex="6">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="experience" id="exp"
+									class="form-control" placeholder="Experience" tabindex="5">
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="mobilenumber" id="Mobile_number"
+									class="form-control" placeholder="Mobilenumber" tabindex="6">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="city" id="city_name"
+									class="form-control" placeholder="City" tabindex="5">
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="State" id="state_name"
+									class="form-control" placeholder="state" tabindex="6">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-4 col-sm-3 col-md-3">
+							<span class="button-checkbox">
+								<button type="button" class="btn" data-color="info" tabindex="7">I
+									Agree</button> <input type="checkbox" name="t_and_c" id="t_and_c"
+								class="hidden" value="1">
+							</span>
+						</div>
+						<div class="col-xs-8 col-sm-9 col-md-9">
+							By clicking <strong class="label label-primary">Register</strong>,
+							you agree to the <a href="#" data-toggle="modal"
+								data-target="#t_and_c_m">Terms and Conditions</a> set out by
+							this site, including our Cookie Use.
+						</div>
+					</div>
+
+					<hr class="colorgraph">
+					<div class="row">
+						<div class="col-xs-12 col-md-6">
+							<input type="submit" value="Register" id="btn"
+								class="btn btn-primary btn-block" tabindex="7">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+					</div>
+					<div class="modal-body">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							Similique, itaque, modi, aliquam nostrum at sapiente consequuntur
+							natus odio reiciendis perferendis rem nisi tempore possimus ipsa
+							porro delectus quidem dolorem ad.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							Similique, itaque, modi, aliquam nostrum at sapiente consequuntur
+							natus odio reiciendis perferendis rem nisi tempore possimus ipsa
+							porro delectus quidem dolorem ad.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							Similique, itaque, modi, aliquam nostrum at sapiente consequuntur
+							natus odio reiciendis perferendis rem nisi tempore possimus ipsa
+							porro delectus quidem dolorem ad.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">I
+							Agree</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</div>
+	<footer>
+		<div class="footer-container">
+		<center><p>Cook At home Inc.</p></center>
+			
+		</div>
+	</footer>
+</body>
+</html>

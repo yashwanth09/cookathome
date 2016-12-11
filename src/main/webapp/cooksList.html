@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+/***
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+***/
+
+/* Content */
+.content {
+	padding-top: 100px;
+}
+
+/* Testimonials */
+.testimonials blockquote {
+	background: #464040 none repeat scroll 0 0;
+	border: medium none;
+	color: #666;
+	display: block;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 15px;
+	position: relative;
+}
+
+.testimonials blockquote::before {
+	width: 0;
+	height: 0;
+	right: 0;
+	bottom: 0;
+	content: " ";
+	display: block;
+	position: absolute;
+	border-bottom: 20px solid #fff;
+	border-right: 0 solid transparent;
+	border-left: 15px solid transparent;
+	border-left-style: inset; /*FF fixes*/
+	border-bottom-style: inset; /*FF fixes*/
+}
+
+.testimonials blockquote::after {
+	width: 0;
+	height: 0;
+	right: 0;
+	bottom: 0;
+	content: " ";
+	display: block;
+	position: absolute;
+	border-style: solid;
+	border-width: 20px 20px 0 0;
+	border-color: #f1f1f1 transparent transparent transparent;
+}
+
+.testimonials .carousel-info img {
+	border: 1px solid #f5f5f5;
+	border-radius: 150px !important;
+	height: 75px;
+	padding: 3px;
+	width: 75px;
+}
+
+.testimonials .carousel-info {
+	overflow: hidden;
+}
+
+.testimonials .carousel-info img {
+	margin-right: 15px;
+}
+
+.testimonials .carousel-info span {
+	display: block;
+}
+
+.testimonials span.testimonials-name {
+	color: #e6400c;
+	font-size: 16px;
+	font-weight: 300;
+	margin: 3px 0 7px;
+}
+
+.testimonials span.testimonials-post {
+	color: #656565;
+	font-size: 12px;
+}
+footer {
+	color: #666;
+	background: #222;
+	padding: 17px 0 18px 0;
+	border-top: 1px solid #000;
+	margin-top:30px;
+}
+
+footer a {
+	color: #999;
+}
+
+footer a:hover {
+	color: #efefef;
+}
+
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -63px;
+}
+
+.push {
+	height: 63px;
+}
+/* not required for sticky footer; just pushes hero down a bit */
+.wrapper>.container {
+	padding-top: 60px;
+}
+
+/* responsive footer fix by Aalaap Ghag */
+@media ( max-width : 767px) {
+	body {
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+	footer, .wrapper {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+.footer-container {
+	max-width: 940px;
+}
+</style>
+</style>
+<script>
+	$(document).ready(function() {
+		//$('#target').html('sending..');
+		//("#password_confirmation").val(),
+		//alert(cookdetails)
+       var once = $("#firstnameInvalid").text();
+       if (once) {
+
+		$.ajax({
+			type : 'GET',
+			url : "http://cookathome-prestartest.rhcloud.com/getAllCooks",
+			dataType : 'json',
+			success : function(response) {
+				appendcookslist(response)
+			}
+		});
+		//e.preventDefault();
+       }
+       
+	});
+	
+	function appendcookslist(response){
+		//console.log(response)
+		var rowcount=0
+		for (i = 0; i <= response.length; i++) 
+		{ 	
+			if (i==0)
+				{
+				var id="rownumber-"+rowcount;
+				$("#maincontainer").append("<div class='row' id='"+id+"'></div>");
+				}
+			 if(i!==0 && i%4==0)
+				{
+			    rowcount=rowcount+1;
+			    var id="rownumber-"+rowcount;
+				$("#maincontainer").append("<div class='row' id='"+id+"''></div>");
+				}
+			 rowid="#rownumber-"+rowcount
+			 idfor_button=response[i].cookFname
+			$(rowid).append("<div class='col-sm-3'><div class='testimonials'></div><div><img src='http://keenthemes.com/assets/bootsnipp/img1-small.jpg' class='pull-left'> <div class='pull-left'><span><b>Name:</b>"+response[i].cookFname+"</span><br><b>Experinece:</b>"+response[i].cookExp+"<br><b>Rating:</b>5<br><button type='submit' class='btn btn-default' id='"+idfor_button+"'>Book an appointment</button></div></div></div>")
+		}		
+			
+	}
+	$(document).on('click', 'button', function(){ 
+		
+		var cookName_from_buttonid = this.id
+		
+		var retrievedObject = sessionStorage.getItem('order');;
+		datafrom_itemslist_page = JSON.parse(retrievedObject);
+	      datafrom_itemslist_page.cookName=cookName_from_buttonid;
+	      console.log(datafrom_itemslist_page)
+	      
+	      $.ajax({
+				url : 'http://cookathome-prestartest.rhcloud.com/placeAnOder',
+				type : "POST",
+				data : JSON.stringify(datafrom_itemslist_page),
+				contentType : "application/json; charset=utf-8",
+				dataType : "json",
+				success : function(data) {
+					//showmodel(data)
+					//alert("Order Placed successfully")
+					$("#order_body").append("<pre>"+JSON.stringify(data)+"</pre>")
+					 $("a").trigger("click");
+					
+				},
+
+			});
+	     
+
+	})
+	
+/* 	function showmodel(data)
+	{
+		;
+	} */
+	
+	
+		
+	
+</script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Cook At Home</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="index.html">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="registerCook.html">Jion Our community</a></li>
+      <li><a href="#">Rate our Cooks</a></li>
+    </ul>
+  </div>
+</nav>
+
+<span id="firstnameInvalid" style="color:red; display:none;">true</span></p>
+	<div class="container content" id="maincontainer">
+</div>
+		<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true"></button>
+						<h4 class="modal-title" id="myModalLabel">Yaaay</h4>
+					</div>
+					<div class="modal-body " id="order_body">
+					<p>Appointment successfull</p>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<a href="#" style="visibility: hidden;" data-toggle="modal" data-target="#t_and_c_m" id="success">check</a>
+</body>
+</html>
